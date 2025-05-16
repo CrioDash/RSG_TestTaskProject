@@ -24,7 +24,7 @@ namespace Content.Features.AIModule.Scripts.Entity.EntityBehaviours {
         }
 
         public void Process() {
-            if(IsNearTheTarget())
+            if(IsNearTheTarget() && !IsInventoryFull())
                 CollectLoot();
             else
                 MoveToTarget();
@@ -41,8 +41,15 @@ namespace Content.Features.AIModule.Scripts.Entity.EntityBehaviours {
         private bool IsNearTheTarget() =>
             Vector3.Distance(_entityContext.EntityDamageable.Position, _loot.transform.position) <= _entityContext.EntityData.InteractDistance;
 
+        private bool IsInventoryFull() =>
+            _entityContext.Storage.TotalWeight + _lootService.GetLootWeight(_loot) >
+            _entityContext.EntityData.MaxInventoryWeight;
+
         private void CollectLoot() {
             _lootService.CollectLoot(_loot, _entityContext.Storage);
+            
+            Debug.Log(_entityContext.Storage.TotalWeight);
+            
             _loot.DestroyLoot();
             StopMoving();
             OnBehaviorEnd?.Invoke();

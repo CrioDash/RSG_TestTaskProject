@@ -3,5 +3,6 @@
 namespace Content.Features.LootModule.Scripts {
     public interface ILootService {
         void CollectLoot(Loot loot, IStorage storage);
+        int GetLootWeight(Loot loot);
     }
 }

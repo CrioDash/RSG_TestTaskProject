@@ -9,5 +9,6 @@ namespace Content.Features.AIModule.Scripts.Entity {
         public float AttackDistance;
         public float InteractDistance;
         public float Speed;
+        public int MaxInventoryWeight;
     }
 }

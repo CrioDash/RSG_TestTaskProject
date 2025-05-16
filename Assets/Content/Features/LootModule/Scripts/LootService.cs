@@ -1,4 +1,5 @@
-﻿using Content.Features.StorageModule.Scripts;
+﻿using System.Linq;
+using Content.Features.StorageModule.Scripts;
 
 namespace Content.Features.LootModule.Scripts {
     public class LootService : ILootService {
@@ -10,6 +11,11 @@ namespace Content.Features.LootModule.Scripts {
         public void CollectLoot(Loot loot, IStorage storage) {
             foreach (ItemType itemType in loot.GetItemsInLoot())
                 storage.AddItem(_itemFactory.GetItem(itemType));
+        }
+
+        public int GetLootWeight(Loot loot)
+        {
+            return loot.GetItemsInLoot().Sum(item => _itemFactory.GetItem(item).Weight);
         }
     }
 }

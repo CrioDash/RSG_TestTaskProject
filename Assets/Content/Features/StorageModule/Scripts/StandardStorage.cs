@@ -9,6 +9,8 @@ namespace Content.Features.StorageModule.Scripts {
         public event Action<Item> OnItemAdded;
         public event Action<Item> OnItemRemoved;
 
+        public int TotalWeight => _items.Sum(item => item.Weight);
+
         public List<Item> GetAllItems() =>
             _items.ToList();
 
