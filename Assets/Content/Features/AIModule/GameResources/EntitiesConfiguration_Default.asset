@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a314a1713a4ea5b0f43ee840632336, type: 3}
+  m_Name: EntitiesConfiguration_Default
+  m_EditorClassIdentifier: 
+  _entityDatas:
+  - EntityType: 2
+    StartHealth: 10
+    Damage: 5
+    AttackDistance: 2
+    InteractDistance: 3
+    Speed: 5
+  - EntityType: 1
+    StartHealth: 1000
+    Damage: 10
+    AttackDistance: 2
+    InteractDistance: 3
+    Speed: 5
+  - EntityType: 3
+    StartHealth: 100
+    Damage: 10
+    AttackDistance: 5
+    InteractDistance: 4
+    Speed: 5
+  _defaultEntityData:
+    EntityType: 2
+    StartHealth: 10
+    Damage: 10
+    AttackDistance: 2
+    InteractDistance: 3
+    Speed: 5
