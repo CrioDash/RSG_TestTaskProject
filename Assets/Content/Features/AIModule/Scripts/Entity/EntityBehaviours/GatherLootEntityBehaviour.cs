@@ -48,8 +48,6 @@ namespace Content.Features.AIModule.Scripts.Entity.EntityBehaviours {
         private void CollectLoot() {
             _lootService.CollectLoot(_loot, _entityContext.Storage);
             
-            Debug.Log(_entityContext.Storage.TotalWeight);
-            
             _loot.DestroyLoot();
             StopMoving();
             OnBehaviorEnd?.Invoke();

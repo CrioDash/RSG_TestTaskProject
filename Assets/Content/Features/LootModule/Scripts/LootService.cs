@@ -1,16 +1,27 @@
 ﻿using System.Linq;
+using Content.Features.InventoryModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 
 namespace Content.Features.LootModule.Scripts {
     public class LootService : ILootService {
         private IItemFactory _itemFactory;
+        private readonly PlayerInventoryModel _playerInventoryModel;
 
-        public LootService(IItemFactory itemFactory) =>
+        public LootService(IItemFactory itemFactory,
+            PlayerInventoryModel playerInventoryModel)
+        {
             _itemFactory = itemFactory;
+            _playerInventoryModel = playerInventoryModel;
+        }
 
         public void CollectLoot(Loot loot, IStorage storage) {
             foreach (ItemType itemType in loot.GetItemsInLoot())
-                storage.AddItem(_itemFactory.GetItem(itemType));
+            {
+                var item = _itemFactory.GetItem(itemType);
+                
+                storage.AddItem(item);
+                _playerInventoryModel.AddItem(item);
+            }
         }
 
         public int GetLootWeight(Loot loot)

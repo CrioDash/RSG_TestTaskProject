@@ -1,5 +1,6 @@
 ﻿using Content.Features.AIModule.Scripts.Entity.EntityBehaviours;
 using Content.Features.DamageablesModule.Scripts;
+using Content.Features.InventoryModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,8 @@ namespace Content.Features.AIModule.Scripts.Entity {
         private IEntityDataService _entityDataService;
         private IStorageFactory _storageFactory;
         private IEntityBehaviourFactory _entityBehaviourFactory;
+
+        [Inject] private PlayerInventoryModel _playerInventoryModel;
 
         [Inject]
         public void InjectDependencies(IEntityDataService entityDataService, IStorageFactory storageFactory, IEntityBehaviourFactory entityBehaviourFactory) {
@@ -30,6 +33,10 @@ namespace Content.Features.AIModule.Scripts.Entity {
             _entityContext.Storage = _storageFactory.GetStorage();
             
             SetDefaultBehaviour();
+            
+            if(_entityType == EntityType.Player)
+                FillStorage();
+            
         }
 
         private void Update() =>
@@ -62,6 +69,12 @@ namespace Content.Features.AIModule.Scripts.Entity {
                 SetBehaviour(_entityBehaviourFactory.GetEntityBehaviour<IdleSearchForTargetsEntityBehaviour>());
             else
                 SetBehaviour(_entityBehaviourFactory.GetEntityBehaviour<IdleEntityBehaviour>());
+        }
+
+        private void FillStorage()
+        {
+            foreach (var item in _playerInventoryModel.items)
+                _entityContext.Storage.AddItem(item);
         }
     }
 }
