@@ -7,11 +7,11 @@ namespace Content.Features.MoneyModule.Scripts
 {
     public class PlayerMoneyView: UIView
     {
-        [SerializeField] private Text MoneyText;
+        [SerializeField] private Text moneyText;
 
         public void SetMoneyAmount(int amount)
         {
-            MoneyText.text = amount.ToString();
+            moneyText.text = amount.ToString();
         }
     }
 }

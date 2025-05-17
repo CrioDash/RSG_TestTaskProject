@@ -24,7 +24,7 @@ namespace Content.Features.HealthModule.Scripts
 
         private void OnChangeHealth()
         {
-            View.SetFill((float)Model.CurrentHealth/Model.MaxHealth);
+            View.SetFill(Model.CurrentHealth/Model.MaxHealth);
         }
         
     }

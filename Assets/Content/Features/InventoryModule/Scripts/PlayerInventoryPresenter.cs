@@ -1,4 +1,5 @@
 ﻿using System;
+using Content.Features.HealthModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 using Core.AssetLoaderModule.Core.Scripts;
 using Core.UiModule.Scripts;
@@ -12,18 +13,22 @@ namespace Content.Features.InventoryModule.Scripts
     {
         private readonly DiContainer _container;
         private readonly IAddressablesAssetLoaderService _loaderService;
+        private readonly PlayerHealthModel _playerHealthModel;
 
         public PlayerInventoryPresenter(
             DiContainer container,
-            IAddressablesAssetLoaderService loaderService)
+            IAddressablesAssetLoaderService loaderService,
+            PlayerHealthModel playerHealthModel)
         {
             _container = container;
             _loaderService = loaderService;
+            _playerHealthModel = playerHealthModel;
         }
         
         public void Initialize()
         {
             Model.OnItemAdded += OnItemAdded;
+            Model.OnItemRemoved += OnItemRemoved;
             Model.OnItemsCleared += OnItemsCleared;
             
             CheckInventoryItems();
@@ -32,41 +37,30 @@ namespace Content.Features.InventoryModule.Scripts
         public void Dispose()
         {
             Model.OnItemAdded -= OnItemAdded;
+            Model.OnItemRemoved -= OnItemRemoved;
             Model.OnItemsCleared -= OnItemsCleared;
         }
 
         private void CheckInventoryItems()
         {
             foreach (var type in Model.items.Keys)
-            {
-                GameObject prefab = _loaderService.LoadAsset<GameObject>(Address.UI.PlayerInventoryItemView);
-
-                GameObject go = _container.InstantiatePrefab(prefab, View.transform);
-
-                var itemView = go.GetComponent<PlayerInventoryItemView>();
-                itemView.SetItemData(Model.items[type][0].Icon, Model.items[type].Count);
-                
-                View.ItemViews.Add(type, itemView);
-            }
+               CreateItem(type);
         }
         
         private void OnItemAdded(ItemType type, Item item)
         {
             if(!View.ItemViews.ContainsKey(type))
-            {
-                GameObject prefab = _loaderService.LoadAsset<GameObject>(Address.UI.PlayerInventoryItemView);
-
-                GameObject go = _container.InstantiatePrefab(prefab, View.transform);
-
-                var itemView = go.GetComponent<PlayerInventoryItemView>();
-                itemView.SetItemData(Model.items[type][0].Icon, Model.items[type].Count);
-                
-                View.ItemViews.Add(type, itemView);
-            }
+                CreateItem(type);
             else
-            {
                 View.ItemViews[type].SetAmount(Model.items[type].Count);
-            }
+        }
+
+        private void OnItemRemoved(ItemType type, int amount)
+        {
+            if (amount == 0)
+                GameObject.Destroy(View.ItemViews[type].gameObject);
+            else
+                View.ItemViews[type].SetAmount(amount);
         }
 
         private void OnItemsCleared()
@@ -76,6 +70,32 @@ namespace Content.Features.InventoryModule.Scripts
                 GameObject.Destroy(View.ItemViews[item].gameObject);
             }
             View.ItemViews.Clear();
+        }
+
+        private void CreateItem(ItemType type)
+        {
+            GameObject prefab = _loaderService.LoadAsset<GameObject>(Address.UI.PlayerInventoryItemView);
+
+            GameObject go = _container.InstantiatePrefab(prefab, View.transform);
+
+            var itemView = go.GetComponent<PlayerInventoryItemView>();
+            var isInteractable = type == ItemType.Potion;
+            
+            if(type == ItemType.Potion)
+                itemView.Button.onClick.AddListener(OnPotionClick);
+                
+            itemView.SetItemData(Model.items[type][0].Icon, Model.items[type].Count, isInteractable);
+                
+            View.ItemViews.Add(type, itemView);
+        }
+
+        private void OnPotionClick()
+        {
+            Model.RemoveItem(ItemType.Potion, Model.items[ItemType.Potion][^1]);
+            
+            var healAmount = _playerHealthModel.MaxHealth / 4;
+            
+            _playerHealthModel.PlayerEntity.EntityDamageable.Heal(healAmount);
         }
         
     }

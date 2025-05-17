@@ -1,23 +1,27 @@
 ﻿using Core.UiModule.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Content.Features.InventoryModule.Scripts
 {
     public class PlayerInventoryItemView: UIView
     {
-        [SerializeField] private Image Icon;
-        [SerializeField] private Text Amount;
+        [SerializeField] private Text amount;
+        [SerializeField] private Button button;
 
-        public void SetItemData(Sprite icon, int amount)
+        public Button Button => button;
+
+        public void SetItemData(Sprite icon, int amount, bool isClickable)
         {
-            Icon.sprite = icon;
-            Amount.text = amount.ToString();
+            button.image.sprite = icon;
+            button.interactable = isClickable;
+            this.amount.text = amount.ToString();
         }
 
         public void SetAmount(int amount)
         {
-            Amount.text = amount.ToString();
+            this.amount.text = amount.ToString();
         }
     }
 }

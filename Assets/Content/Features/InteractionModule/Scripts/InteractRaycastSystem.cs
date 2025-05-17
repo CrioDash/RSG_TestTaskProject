@@ -39,16 +39,18 @@ namespace Content.Features.InteractionModule {
                 return;
             
             Ray ray = _playerCameraModel.CurrentCamera.ScreenPointToRay(mousePosition);
-            RaycastHit[] hits = new RaycastHit[_interactConfiguration.MaxHits];
 
-            if (Physics.RaycastNonAlloc(ray, hits, MAX_DISTANCE, _interactConfiguration.PlayerInteractLayers) <= 0)
+            var hits = Physics.RaycastAll(ray, MAX_DISTANCE, _interactConfiguration.PlayerInteractLayers);
+
+            if (hits.Length <= 0)
                 return;
 
             foreach (RaycastHit hit in hits) {
                 if (hit.collider != null && hit.collider.TryGetComponent(out IInteractable interactable)) {
                     {
                         if(hit.collider.GetComponent<PlayerRegister>() != null)
-                            return;
+                            continue;
+                        
                         interactable.Interact(_playerEntityModel.PlayerEntity);
                         return;
                     }

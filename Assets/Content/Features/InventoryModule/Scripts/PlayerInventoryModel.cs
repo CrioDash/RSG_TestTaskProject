@@ -11,7 +11,7 @@ namespace Content.Features.InventoryModule.Scripts
         public Dictionary<ItemType, List<Item>> items { get; private set; } = new Dictionary<ItemType, List<Item>>();
         
         public event Action<ItemType, Item> OnItemAdded;
-        public event Action<ItemType, Item> OnItemRemoved;
+        public event Action<ItemType, int> OnItemRemoved;
         public event Action OnItemsCleared;
         
         public void AddItem(ItemType itemType, Item item)
@@ -21,6 +21,18 @@ namespace Content.Features.InventoryModule.Scripts
             items[itemType].Add(item);
 
             OnItemAdded?.Invoke(itemType, item);
+        }
+
+        public void RemoveItem(ItemType itemType, Item item)
+        {
+            if(!HasItem(itemType))
+                return;
+            items[itemType].Remove(item);
+            
+            OnItemRemoved?.Invoke(itemType, items[itemType].Count);
+            
+            if (items[itemType].Count == 0)
+                items.Remove(itemType);
         }
 
         public void RemoveAllItems()

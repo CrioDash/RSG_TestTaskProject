@@ -37,7 +37,6 @@ namespace Content.Features.AIModule.Scripts.Entity {
             _entityContext.Entity = this;
             _entityContext.EntityDamageable = GetComponent<IDamageable>();
             _entityContext.EntityData = _entityDataService.GetEntityData(_entityType);
-            _entityContext.EntityDamageable.SetHealth(_entityContext.EntityData.StartHealth);
             _entityContext.Storage = _storageFactory.GetStorage();
             
             SetDefaultBehaviour();
@@ -46,6 +45,10 @@ namespace Content.Features.AIModule.Scripts.Entity {
             {
                 FillStorage();
                 SetHealth();
+            }
+            else
+            {
+                _entityContext.EntityDamageable.SetHealth(_entityContext.EntityData.StartHealth);
             }
             
         }
@@ -91,7 +94,7 @@ namespace Content.Features.AIModule.Scripts.Entity {
 
         private void SetHealth()
         {
-            _playerHealthModel.SetMaxHealth(_entityContext.EntityData.StartHealth);
+            _playerHealthModel.SetMaxHealth(_entityContext.EntityData.StartHealth, _entityContext);
             _entityContext.EntityDamageable.SetHealth(_playerHealthModel.CurrentHealth);
         }
         

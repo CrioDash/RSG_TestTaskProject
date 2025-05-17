@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f88d540a72a4d369d128016cd6bfcf1, type: 3}
   m_Name: InteractConfiguration_Default
   m_EditorClassIdentifier: 
-  <MaxHits>k__BackingField: 2
+  <MaxHits>k__BackingField: 1
   <PlayerInteractLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 72

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Content.Features.DamageablesModule.Scripts {
     public class MonoDamageable : MonoBehaviour, IDamageable {
-        [SerializeField] private int _health;
+        [SerializeField] private float _health;
         [SerializeField] private DamageableType _damageableType;
         [SerializeField] private AttackInteractable _attackInteractable;
 
@@ -25,12 +25,12 @@ namespace Content.Features.DamageablesModule.Scripts {
         public event Action OnDamaged;
         public event Action OnKilled;
 
-        public void Damage(int damage) {
+        public void Damage(float damage) {
             _health -= damage;
             OnDamaged?.Invoke();
 
-            if(_damageableType == DamageableType.Player) 
-                _playerHealthModel.TakeDamage(damage);
+            if (_damageableType == DamageableType.Player)
+                _playerHealthModel.SetCurrentHealth(_health);
             
             if (_health > 0)
                 return;
@@ -39,10 +39,21 @@ namespace Content.Features.DamageablesModule.Scripts {
             Destroy(gameObject);
         }
 
-        public void SetHealth(int health)
+        public void Heal(float heal)
+        {
+            _health += heal;
+
+            Mathf.Clamp(_health, 0, _playerHealthModel.MaxHealth);
+
+            _playerHealthModel.SetCurrentHealth(_health);
+        }
+
+        public void SetHealth(float health)
         {
             _health = health;
-            Debug.Log($"Current Health: {_health}");
+
+            if (_damageableType == DamageableType.Player)
+                _playerHealthModel.SetCurrentHealth(health);
         }
     }
 }
