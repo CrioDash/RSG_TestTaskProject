@@ -1,6 +1,7 @@
 using Content.Features.AIModule.Scripts.Entity;
 using Content.Features.StorageModule.Scripts;
 using Content.Features.CameraModule;
+using Content.Features.CanvasModule.Scripts;
 using Content.Features.InteractionModule;
 using Content.Features.InventoryModule.Scripts;
 using Content.Features.LootModule.Scripts;
@@ -14,6 +15,7 @@ namespace Content.Features.GameBootstrapModule.Scripts.ProjectDI {
         fileName = nameof(GlobalSceneContextInstaller) + "_Default", order = 0)]
     public class GlobalSceneContextInstaller : ScriptableObjectInstaller<GlobalSceneContextInstaller> {
         public override void InstallBindings() {
+            CanvasInstaller.Install(Container);
             PrefabSpawnerInstaller.Install(Container);
             PlayerDataInstaller.Install(Container);
             CameraInstaller.Install(Container);
