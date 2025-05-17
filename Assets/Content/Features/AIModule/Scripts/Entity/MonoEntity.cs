@@ -87,6 +87,7 @@ namespace Content.Features.AIModule.Scripts.Entity {
 
         private void FillStorage()
         {
+            _playerInventoryModel.PlayerEntity = _entityContext;
             foreach (var itemType in _playerInventoryModel.items.Values)
                 foreach (var item in itemType)
                     _entityContext.Storage.AddItem(item);

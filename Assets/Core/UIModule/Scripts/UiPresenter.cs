@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Core.UiModule.Scripts
 {
@@ -9,24 +10,12 @@ namespace Core.UiModule.Scripts
 
         public void Show()
         {
-            OnShow();
             View.Show();
-        }
-
-        public virtual void OnShow()
-        {
-            
         }
 
         public void Hide()
         {
-            OnHide();
             View.Hide();
-        }
-
-        public void OnHide()
-        {
-            
         }
     }
 }

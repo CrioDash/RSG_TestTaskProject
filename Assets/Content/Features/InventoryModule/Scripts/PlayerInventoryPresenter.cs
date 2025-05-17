@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Content.Features.HealthModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 using Core.AssetLoaderModule.Core.Scripts;
@@ -91,7 +92,7 @@ namespace Content.Features.InventoryModule.Scripts
 
         private void OnPotionClick()
         {
-            Model.RemoveItem(ItemType.Potion, Model.items[ItemType.Potion][^1]);
+            Model.RemoveItem(ItemType.Potion, Model.items[ItemType.Potion].Last());
             
             var healAmount = _playerHealthModel.MaxHealth / 4;
             

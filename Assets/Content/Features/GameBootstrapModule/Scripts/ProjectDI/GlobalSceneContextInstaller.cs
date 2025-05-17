@@ -1,4 +1,5 @@
 using Content.Features.AIModule.Scripts.Entity;
+using Content.Features.BuyItemModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 using Content.Features.CameraModule;
 using Content.Features.CanvasModule.Scripts;
@@ -28,6 +29,7 @@ namespace Content.Features.GameBootstrapModule.Scripts.ProjectDI {
             InventoryInstaller.Install(Container);
             HealthInstaller.Install(Container);
             MoneyInstaller.Install(Container);
+            TradeTableInstaller.Install(Container);
         }
     }
 }

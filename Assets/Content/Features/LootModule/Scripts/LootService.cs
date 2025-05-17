@@ -19,7 +19,6 @@ namespace Content.Features.LootModule.Scripts {
             {
                 var item = _itemFactory.GetItem(itemType);
                 
-                storage.AddItem(item);
                 _playerInventoryModel.AddItem(itemType, item);
             }
         }

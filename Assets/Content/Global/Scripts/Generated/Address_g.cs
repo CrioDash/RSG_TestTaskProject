@@ -11,11 +11,13 @@ namespace Global.Scripts.Generated {
             "GlobalScene",
             "SurfaceScene",
             "DungeonScene",
+            "TradeTableView",
+            "TradeTableItemView",
             "PlayerInventoryView",
             "PlayerHealthView",
             "PlayerInventoryItemView",
-            "Canvas",
             "PlayerMoneyView",
+            "Canvas",
             "Player",
             "Potion",
             "Standard_Enemy",
@@ -50,17 +52,21 @@ namespace Global.Scripts.Generated {
         } 
 
         public static class UI { 
+            public const System.String TradeTableView = "TradeTableView"; 
+            public const System.String TradeTableItemView = "TradeTableItemView"; 
             public const System.String PlayerInventoryView = "PlayerInventoryView"; 
             public const System.String PlayerHealthView = "PlayerHealthView"; 
             public const System.String PlayerInventoryItemView = "PlayerInventoryItemView"; 
-            public const System.String Canvas = "Canvas"; 
             public const System.String PlayerMoneyView = "PlayerMoneyView"; 
+            public const System.String Canvas = "Canvas"; 
             public static List<string> AllKeys = new() {
+                "TradeTableView",
+                "TradeTableItemView",
                 "PlayerInventoryView",
                 "PlayerHealthView",
                 "PlayerInventoryItemView",
-                "Canvas",
                 "PlayerMoneyView",
+                "Canvas",
             }; 
         } 
 

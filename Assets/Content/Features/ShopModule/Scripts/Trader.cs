@@ -17,13 +17,10 @@ namespace Content.Features.ShopModule.Scripts {
             int sumOfMoney = 0;
             foreach (int price in storage.GetAllItems().Select(item => item.Price))
                 sumOfMoney += price;
-
-            storage.RemoveAllItems();
             
             _playerInventoryModel.RemoveAllItems();
             _playerMoneyModel.AddMoney(sumOfMoney);
             
-            Debug.LogError("Recieved " + sumOfMoney);
             return sumOfMoney;
         }
 

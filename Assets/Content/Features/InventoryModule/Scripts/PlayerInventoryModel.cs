@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Content.Features.AIModule.Scripts.Entity;
 using Content.Features.StorageModule.Scripts;
 using Core.UiModule.Scripts;
 using UnityEngine;
@@ -14,11 +16,15 @@ namespace Content.Features.InventoryModule.Scripts
         public event Action<ItemType, int> OnItemRemoved;
         public event Action OnItemsCleared;
         
+        public EntityContext PlayerEntity;
+        
         public void AddItem(ItemType itemType, Item item)
         {
             if(!HasItem(itemType))
                 items.Add(itemType, new List<Item>());
             items[itemType].Add(item);
+
+            PlayerEntity.Storage.AddItem(item);
 
             OnItemAdded?.Invoke(itemType, item);
         }
@@ -31,6 +37,8 @@ namespace Content.Features.InventoryModule.Scripts
             
             OnItemRemoved?.Invoke(itemType, items[itemType].Count);
             
+            PlayerEntity.Storage.RemoveItem(item);
+            
             if (items[itemType].Count == 0)
                 items.Remove(itemType);
         }
@@ -38,6 +46,7 @@ namespace Content.Features.InventoryModule.Scripts
         public void RemoveAllItems()
         {
             items.Clear();
+            PlayerEntity.Storage.RemoveAllItems();
             OnItemsCleared?.Invoke();
         }
         
@@ -46,5 +55,10 @@ namespace Content.Features.InventoryModule.Scripts
             return items.ContainsKey(item);
         }
 
+        public bool IsInventoryFull()
+        {
+           int totalWeight = items.SelectMany(pair => pair.Value).Sum(item => item.Weight);
+           return totalWeight >= PlayerEntity.EntityData.MaxInventoryWeight;
+        }
     }
 }

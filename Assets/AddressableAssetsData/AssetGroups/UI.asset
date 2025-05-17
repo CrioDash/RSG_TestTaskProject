@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: UI
   m_GUID: 2af9ca3ae6dc5b94fb5f42ce25b0acc6
   m_SerializeEntries:
+  - m_GUID: 09b82b17b2afeef40a1df2e08923de47
+    m_Address: TradeTableView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f351b54de472ee4bb8cf5e4e8b63e24
+    m_Address: TradeTableItemView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 23d73392224a71b488f7973e59b5bac7
     m_Address: PlayerInventoryView
     m_ReadOnly: 0

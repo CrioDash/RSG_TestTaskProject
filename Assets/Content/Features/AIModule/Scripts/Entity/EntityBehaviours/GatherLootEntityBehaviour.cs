@@ -1,4 +1,5 @@
 ﻿using System;
+using Content.Features.InventoryModule.Scripts;
 using Content.Features.LootModule.Scripts;
 using UnityEngine;
 
@@ -7,11 +8,16 @@ namespace Content.Features.AIModule.Scripts.Entity.EntityBehaviours {
         private EntityContext _entityContext;
         private Loot _loot;
         private ILootService _lootService;
+        private readonly PlayerInventoryModel _playerInventoryModel;
 
         public event Action OnBehaviorEnd;
 
-        public GatherLootEntityBehaviour(ILootService lootService) =>
+        public GatherLootEntityBehaviour(ILootService lootService,
+            PlayerInventoryModel playerInventoryModel)
+        {
             _lootService = lootService;
+            _playerInventoryModel = playerInventoryModel;
+        }
 
         public void InitContext(EntityContext entityContext) =>
             _entityContext = entityContext;
@@ -24,7 +30,7 @@ namespace Content.Features.AIModule.Scripts.Entity.EntityBehaviours {
         }
 
         public void Process() {
-            if(IsNearTheTarget() && !IsInventoryFull())
+            if(IsNearTheTarget() && !_playerInventoryModel.IsInventoryFull())
                 CollectLoot();
             else
                 MoveToTarget();
@@ -40,10 +46,7 @@ namespace Content.Features.AIModule.Scripts.Entity.EntityBehaviours {
 
         private bool IsNearTheTarget() =>
             Vector3.Distance(_entityContext.EntityDamageable.Position, _loot.transform.position) <= _entityContext.EntityData.InteractDistance;
-
-        private bool IsInventoryFull() =>
-            _entityContext.Storage.TotalWeight + _lootService.GetLootWeight(_loot) >
-            _entityContext.EntityData.MaxInventoryWeight;
+        
 
         private void CollectLoot() {
             _lootService.CollectLoot(_loot, _entityContext.Storage);

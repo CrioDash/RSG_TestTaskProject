@@ -6,8 +6,6 @@ namespace Content.Features.StorageModule.Scripts {
         public event Action<Item> OnItemAdded;
         public event Action<Item> OnItemRemoved;
         
-        public int TotalWeight { get; }
-        
         public List<Item> GetAllItems();
     
         public void AddItem(Item item);

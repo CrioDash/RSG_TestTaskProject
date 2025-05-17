@@ -1,4 +1,5 @@
-﻿using Content.Features.HealthModule.Scripts;
+﻿using Content.Features.BuyItemModule.Scripts;
+using Content.Features.HealthModule.Scripts;
 using Content.Features.InventoryModule.Scripts;
 using Content.Features.MoneyModule.Scripts;
 using Content.Features.PrefabSpawner;
@@ -33,6 +34,8 @@ namespace Content.Features.GameBootstrapModule.Scripts.ProjectDI {
                 addressablesAssetLoaderService, canvas.transform, true);
             Container.BindUiView<PlayerMoneyPresenter, PlayerMoneyView>(Address.UI.PlayerMoneyView,
                 addressablesAssetLoaderService, canvas.transform, true);
+            Container.BindUiView<TradeTablePresenter, TradeTableView>(Address.UI.TradeTableView,
+                addressablesAssetLoaderService, canvas.transform, false);
         }
         
         

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Content.Features.InventoryModule.Scripts;
+using UnityEngine;
 using Zenject;
 
 namespace Content.Features.StorageModule.Scripts {
@@ -11,16 +12,12 @@ namespace Content.Features.StorageModule.Scripts {
         public event Action<Item> OnItemAdded;
         public event Action<Item> OnItemRemoved;
 
-        public int TotalWeight => _items.Sum(item => item.Weight);
-
         public List<Item> GetAllItems() =>
             _items.ToList();
 
         public void AddItem(Item item) {
-            if(_items.Contains(item))
-                return;
-        
             _items.Add(item);
+            
             OnItemAdded?.Invoke(item);
         }
 
@@ -30,10 +27,11 @@ namespace Content.Features.StorageModule.Scripts {
         }
 
         public void RemoveItem(Item item) {
-            if(_items.Contains(item) is false)
+            if(!_items.Contains(item))
                 return;
 
             _items.Remove(item);
+            
             OnItemRemoved?.Invoke(item);
         }
 
