@@ -2,6 +2,7 @@ using Content.Features.AIModule.Scripts.Entity;
 using Content.Features.StorageModule.Scripts;
 using Content.Features.CameraModule;
 using Content.Features.CanvasModule.Scripts;
+using Content.Features.HealthModule.Scripts;
 using Content.Features.InteractionModule;
 using Content.Features.InventoryModule.Scripts;
 using Content.Features.LootModule.Scripts;
@@ -24,6 +25,7 @@ namespace Content.Features.GameBootstrapModule.Scripts.ProjectDI {
             AIInstaller.Install(Container);
             LootInstaller.Install(Container);
             InventoryInstaller.Install(Container);
+            HealthInstaller.Install(Container);
         }
     }
 }

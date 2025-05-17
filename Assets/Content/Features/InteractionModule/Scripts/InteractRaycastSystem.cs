@@ -2,6 +2,7 @@
 using Content.Features.AIModule.Scripts.Entity;
 using Content.Features.AIModule.Scripts.Entity.EntityBehaviours;
 using Content.Features.CameraModule;
+using Content.Features.PlayerData.Scripts;
 using Core.InputModule;
 using UnityEngine;
 using Zenject;
@@ -45,8 +46,12 @@ namespace Content.Features.InteractionModule {
 
             foreach (RaycastHit hit in hits) {
                 if (hit.collider != null && hit.collider.TryGetComponent(out IInteractable interactable)) {
-                    interactable.Interact(_playerEntityModel.PlayerEntity);
-                    return;
+                    {
+                        if(hit.collider.GetComponent<PlayerRegister>() != null)
+                            return;
+                        interactable.Interact(_playerEntityModel.PlayerEntity);
+                        return;
+                    }
                 }
             }
 

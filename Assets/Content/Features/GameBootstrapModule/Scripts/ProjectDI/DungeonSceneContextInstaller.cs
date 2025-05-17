@@ -1,4 +1,5 @@
 using Content.Features.CanvasModule.Scripts;
+using Content.Features.HealthModule.Scripts;
 using Content.Features.InventoryModule.Scripts;
 using Content.Features.PrefabSpawner;
 using Core.AssetLoaderModule.Core.Scripts;
@@ -28,6 +29,8 @@ namespace Content.Features.GameBootstrapModule.Scripts.ProjectDI {
             Canvas canvas = Container.InstantiatePrefab(canvasPrefab).GetComponent<Canvas>();
             
             Container.BindUiView<PlayerInventoryPresenter, PlayerInventoryView>(Address.UI.PlayerInventoryView,
+                addressablesAssetLoaderService, canvas.transform, true);
+            Container.BindUiView<PlayerHealthPresenter, PlayerHealthView>(Address.UI.PlayerHealthView,
                 addressablesAssetLoaderService, canvas.transform, true);
         }
     }

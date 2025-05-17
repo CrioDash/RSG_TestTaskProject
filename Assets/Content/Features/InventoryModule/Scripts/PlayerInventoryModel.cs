@@ -15,8 +15,6 @@ namespace Content.Features.InventoryModule.Scripts
         
         public void AddItem(ItemType itemType, Item item)
         {
-            Debug.Log($"Model Item Added: {itemType}");
-            
             if(!HasItem(itemType))
                 items.Add(itemType, new List<Item>());
             items[itemType].Add(item);

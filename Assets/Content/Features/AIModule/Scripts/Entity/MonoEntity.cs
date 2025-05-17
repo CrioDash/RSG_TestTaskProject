@@ -1,5 +1,6 @@
 ﻿using Content.Features.AIModule.Scripts.Entity.EntityBehaviours;
 using Content.Features.DamageablesModule.Scripts;
+using Content.Features.HealthModule.Scripts;
 using Content.Features.InventoryModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 using UnityEngine;
@@ -15,14 +16,21 @@ namespace Content.Features.AIModule.Scripts.Entity {
         private IEntityDataService _entityDataService;
         private IStorageFactory _storageFactory;
         private IEntityBehaviourFactory _entityBehaviourFactory;
-
-        [Inject] private PlayerInventoryModel _playerInventoryModel;
+        private PlayerInventoryModel _playerInventoryModel;
+        private PlayerHealthModel _playerHealthModel;
 
         [Inject]
-        public void InjectDependencies(IEntityDataService entityDataService, IStorageFactory storageFactory, IEntityBehaviourFactory entityBehaviourFactory) {
+        public void InjectDependencies(IEntityDataService entityDataService,
+            IStorageFactory storageFactory,
+            IEntityBehaviourFactory entityBehaviourFactory,
+            PlayerInventoryModel playerInventoryModel,
+            PlayerHealthModel playerHealthModel) 
+        {
             _entityBehaviourFactory = entityBehaviourFactory;
             _storageFactory = storageFactory;
             _entityDataService = entityDataService;
+            _playerInventoryModel = playerInventoryModel;
+            _playerHealthModel = playerHealthModel;
         }
 
         private void Start() {
@@ -35,7 +43,10 @@ namespace Content.Features.AIModule.Scripts.Entity {
             SetDefaultBehaviour();
             
             if(_entityType == EntityType.Player)
+            {
                 FillStorage();
+                SetHealth();
+            }
             
         }
 
@@ -77,5 +88,12 @@ namespace Content.Features.AIModule.Scripts.Entity {
                 foreach (var item in itemType)
                     _entityContext.Storage.AddItem(item);
         }
+
+        private void SetHealth()
+        {
+            _playerHealthModel.SetMaxHealth(_entityContext.EntityData.StartHealth);
+            _entityContext.EntityDamageable.SetHealth(_playerHealthModel.CurrentHealth);
+        }
+        
     }
 }

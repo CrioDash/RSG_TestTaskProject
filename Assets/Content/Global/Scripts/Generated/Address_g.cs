@@ -14,6 +14,7 @@ namespace Global.Scripts.Generated {
             "PlayerInventoryView",
             "PlayerInventoryItemView",
             "Canvas",
+            "PlayerHealthView",
             "Player",
             "Potion",
             "Standard_Enemy",
@@ -51,10 +52,12 @@ namespace Global.Scripts.Generated {
             public const System.String PlayerInventoryView = "PlayerInventoryView"; 
             public const System.String PlayerInventoryItemView = "PlayerInventoryItemView"; 
             public const System.String Canvas = "Canvas"; 
+            public const System.String PlayerHealthView = "PlayerHealthView"; 
             public static List<string> AllKeys = new() {
                 "PlayerInventoryView",
                 "PlayerInventoryItemView",
                 "Canvas",
+                "PlayerHealthView",
             }; 
         } 
 
