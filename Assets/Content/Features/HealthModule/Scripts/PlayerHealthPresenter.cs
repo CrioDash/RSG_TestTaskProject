@@ -15,8 +15,6 @@ namespace Content.Features.HealthModule.Scripts
         public void Initialize()
         {
             Model.OnChangeHealth += OnChangeHealth;
-            
-            OnChangeHealth();
         }
 
         public void Dispose()

@@ -24,7 +24,7 @@ namespace Content.Features.InventoryModule.Scripts
         public void Initialize()
         {
             Model.OnItemAdded += OnItemAdded;
-            Model.OnItemRemoved += OnItemRemoved;
+            Model.OnItemsCleared += OnItemsCleared;
             
             CheckInventoryItems();
         }
@@ -32,7 +32,7 @@ namespace Content.Features.InventoryModule.Scripts
         public void Dispose()
         {
             Model.OnItemAdded -= OnItemAdded;
-            Model.OnItemRemoved -= OnItemRemoved;
+            Model.OnItemsCleared -= OnItemsCleared;
         }
 
         private void CheckInventoryItems()
@@ -67,20 +67,15 @@ namespace Content.Features.InventoryModule.Scripts
             {
                 View.ItemViews[type].SetAmount(Model.items[type].Count);
             }
-            
         }
 
-        private void OnItemRemoved(ItemType type, Item item)
+        private void OnItemsCleared()
         {
-            if(!Model.items.ContainsKey(type))
+            foreach (var item in View.ItemViews.Keys)
             {
-                GameObject.Destroy(View.ItemViews[type].gameObject);
-                View.ItemViews.Remove(type);
+                GameObject.Destroy(View.ItemViews[item].gameObject);
             }
-            else
-            {
-                View.ItemViews[type].SetAmount(Model.items[type].Count);
-            }
+            View.ItemViews.Clear();
         }
         
     }

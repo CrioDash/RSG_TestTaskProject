@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf3928530dff7124fb7a9710ccab3085
+    m_Address: PlayerMoneyView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7a2931b894734641bad1f8fab0282d6
     m_Address: Canvas
     m_ReadOnly: 0

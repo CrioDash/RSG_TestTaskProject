@@ -28,7 +28,8 @@ namespace Content.Features.HealthModule.Scripts
         {
             if(MaxHealth != 0)
                 return;
-            CurrentHealth = MaxHealth = amount;
+            MaxHealth = CurrentHealth = amount;
+            OnChangeHealth?.Invoke();
         }
 
 }

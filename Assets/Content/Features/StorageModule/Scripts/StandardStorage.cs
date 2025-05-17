@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Content.Features.InventoryModule.Scripts;
+using Zenject;
 
 namespace Content.Features.StorageModule.Scripts {
     public class StandardStorage : IStorage {
@@ -41,8 +43,7 @@ namespace Content.Features.StorageModule.Scripts {
         }
 
         public void RemoveAllItems() {
-            foreach (Item item in _items)
-                RemoveItem(item);
+            _items.Clear();
         }
     }
 }

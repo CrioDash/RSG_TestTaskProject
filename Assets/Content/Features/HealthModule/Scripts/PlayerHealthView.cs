@@ -6,11 +6,11 @@ namespace Content.Features.HealthModule.Scripts
 {
     public class PlayerHealthView: UIView
     {
-        [SerializeField] private Slider _slider;
+        [SerializeField] private Slider Slider;
 
         public void SetFill(float value)
         {
-            _slider.value = value;
+            Slider.value = value;
         }
 
     }

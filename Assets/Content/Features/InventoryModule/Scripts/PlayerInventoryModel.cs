@@ -12,6 +12,7 @@ namespace Content.Features.InventoryModule.Scripts
         
         public event Action<ItemType, Item> OnItemAdded;
         public event Action<ItemType, Item> OnItemRemoved;
+        public event Action OnItemsCleared;
         
         public void AddItem(ItemType itemType, Item item)
         {
@@ -22,15 +23,10 @@ namespace Content.Features.InventoryModule.Scripts
             OnItemAdded?.Invoke(itemType, item);
         }
 
-        public void RemoveItem(ItemType itemType, Item item)
+        public void RemoveAllItems()
         {
-            if(!HasItem(itemType))
-                return;
-            items[itemType].Remove(item);
-            if (items[itemType].Count == 0)
-                items.Remove(itemType);
-            
-            OnItemRemoved?.Invoke(itemType, item);
+            items.Clear();
+            OnItemsCleared?.Invoke();
         }
         
         public bool HasItem(ItemType item)
