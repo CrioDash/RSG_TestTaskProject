@@ -59,8 +59,6 @@ namespace Content.Features.InventoryModule.Scripts
         public bool IsInventoryFull(int lootWeight)
         {
             int totalWeight = items.SelectMany(pair => pair.Value).Sum(item => item.Weight) + lootWeight;
-            Debug.Log(totalWeight);
-            Debug.Log(PlayerEntity.EntityData.MaxInventoryWeight);
             return totalWeight > PlayerEntity.EntityData.MaxInventoryWeight;
         }
     }
