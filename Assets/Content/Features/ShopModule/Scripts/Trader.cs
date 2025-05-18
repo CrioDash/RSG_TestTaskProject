@@ -13,7 +13,11 @@ namespace Content.Features.ShopModule.Scripts {
         [Inject] private PlayerInventoryModel _playerInventoryModel;
         [Inject] private PlayerMoneyModel _playerMoneyModel;
         
-        public int SellAllItemsFromStorage(IStorage storage) {
+        public int SellAllItemsFromStorage(IStorage storage)
+        {
+            if (storage.GetAllItems().Count == 0)
+                return 0;
+            
             int sumOfMoney = 0;
             foreach (int price in storage.GetAllItems().Select(item => item.Price))
                 sumOfMoney += price;

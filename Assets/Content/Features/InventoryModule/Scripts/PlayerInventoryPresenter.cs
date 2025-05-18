@@ -59,7 +59,10 @@ namespace Content.Features.InventoryModule.Scripts
         private void OnItemRemoved(ItemType type, int amount)
         {
             if (amount == 0)
+            {
                 GameObject.Destroy(View.ItemViews[type].gameObject);
+                View.ItemViews.Remove(type);
+            }
             else
                 View.ItemViews[type].SetAmount(amount);
         }
