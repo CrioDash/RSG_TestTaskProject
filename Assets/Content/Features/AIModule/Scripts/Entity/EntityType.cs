@@ -2,6 +2,7 @@
     public enum EntityType {
         Player = 1,
         Enemy = 2,
-        Seller = 3
+        Seller = 3,
+        Box = 4
     }
 }

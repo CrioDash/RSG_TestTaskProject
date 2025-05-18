@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Content.Features.AIModule.Scripts.Entity;
+using Content.Features.LootModule.Scripts;
 using Content.Features.StorageModule.Scripts;
 using Core.UiModule.Scripts;
 using UnityEngine;
@@ -55,10 +56,12 @@ namespace Content.Features.InventoryModule.Scripts
             return items.ContainsKey(item);
         }
 
-        public bool IsInventoryFull()
+        public bool IsInventoryFull(int lootWeight)
         {
-           int totalWeight = items.SelectMany(pair => pair.Value).Sum(item => item.Weight);
-           return totalWeight >= PlayerEntity.EntityData.MaxInventoryWeight;
+            int totalWeight = items.SelectMany(pair => pair.Value).Sum(item => item.Weight) + lootWeight;
+            Debug.Log(totalWeight);
+            Debug.Log(PlayerEntity.EntityData.MaxInventoryWeight);
+            return totalWeight > PlayerEntity.EntityData.MaxInventoryWeight;
         }
     }
 }

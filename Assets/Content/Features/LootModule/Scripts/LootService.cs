@@ -22,10 +22,5 @@ namespace Content.Features.LootModule.Scripts {
                 _playerInventoryModel.AddItem(itemType, item);
             }
         }
-
-        public int GetLootWeight(Loot loot)
-        {
-            return loot.GetItemsInLoot().Sum(item => _itemFactory.GetItem(item).Weight);
-        }
     }
 }

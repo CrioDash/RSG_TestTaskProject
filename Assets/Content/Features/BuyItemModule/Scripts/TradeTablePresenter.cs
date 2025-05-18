@@ -76,7 +76,7 @@ namespace Content.Features.BuyItemModule.Scripts
 
         private void BuyItem(int price, ItemType type, Item item)
         {
-            if (_playerMoneyModel.Money >= price && !_playerInventoryModel.IsInventoryFull())
+            if (_playerMoneyModel.Money >= price && !_playerInventoryModel.IsInventoryFull(item.Weight))
             {
                 _playerMoneyModel.RemoveMoney(price);
                 _playerInventoryModel.AddItem(type, item);
