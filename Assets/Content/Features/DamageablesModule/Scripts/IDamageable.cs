@@ -12,6 +12,7 @@ namespace Content.Features.DamageablesModule.Scripts {
         public event Action OnDamaged;
         public event Action OnKilled;
         public void Damage(float damage);
+        public void Heal(float heal);
         public void SetHealth(float health);
     }
 }

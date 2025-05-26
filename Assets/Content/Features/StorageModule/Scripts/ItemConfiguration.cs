@@ -9,5 +9,6 @@ namespace Content.Features.StorageModule.Scripts {
         public string Name;
         public Sprite Icon;
         public int Price;
+        public int Weight;
     }
 }

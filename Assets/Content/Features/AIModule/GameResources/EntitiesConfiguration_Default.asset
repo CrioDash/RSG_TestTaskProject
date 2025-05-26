@@ -19,18 +19,28 @@ MonoBehaviour:
     AttackDistance: 2
     InteractDistance: 3
     Speed: 5
+    MaxInventoryWeight: 0
   - EntityType: 1
-    StartHealth: 1000
+    StartHealth: 100
     Damage: 10
     AttackDistance: 2
     InteractDistance: 3
     Speed: 5
+    MaxInventoryWeight: 10
   - EntityType: 3
     StartHealth: 100
     Damage: 10
     AttackDistance: 5
     InteractDistance: 4
     Speed: 5
+    MaxInventoryWeight: 0
+  - EntityType: 4
+    StartHealth: 1
+    Damage: 0
+    AttackDistance: 5
+    InteractDistance: 5
+    Speed: 0
+    MaxInventoryWeight: 0
   _defaultEntityData:
     EntityType: 2
     StartHealth: 10
@@ -38,3 +48,4 @@ MonoBehaviour:
     AttackDistance: 2
     InteractDistance: 3
     Speed: 5
+    MaxInventoryWeight: 0
